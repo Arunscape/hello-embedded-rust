@@ -11,7 +11,13 @@ use anyhow::{bail, Result};
 use core::time::Duration;
 
 
-fn main() -> anyhow::Result<()> {
+//use axum::{
+//    routing::get,
+//    Router,
+//};
+
+#[tokio::main(flavor = "current_thread")]
+async fn main() -> anyhow::Result<()> {
     // It is necessary to call this function once. Otherwise some patches to the runtime
     // implemented by esp-idf-sys might not link properly. See https://github.com/esp-rs/esp-idf-template/issues/71
     esp_idf_sys::link_patches();
@@ -33,11 +39,17 @@ fn main() -> anyhow::Result<()> {
     FreeRtos::delay_ms(3000);
 
     // infinite rainbow loop at 20% brightness
-    (0..360).cycle().try_for_each(|hue| {
+    (0..360)
+        //.cycle()
+        .try_for_each(|hue| {
         FreeRtos::delay_ms(10);
         let rgb = Rgb::from_hsv(hue, 100, 20)?;
         neopixel(rgb, &mut tx)
-    })
+    });
+
+    Ok(())
+
+
 }
 
 fn neopixel(rgb: Rgb, tx: &mut TxRmtDriver) -> Result<()> {

@@ -34,6 +34,9 @@ esp-idf-hal = { version = "0.41", optional = true, default-features = false }
 esp-idf-svc = { version = "0.46", optional = true, default-features = false }
 embedded-svc = { version = "0.25", optional = true, default-features = false }
 anyhow = "1.0"
+axum = { version = "0.6", default-features = false }
+#tokio = { version = "1", defautl-features = false, features = ["rt", "macros"] }
+tokio = { git="https://github.com/tokio-rs/tokio", defautl-features = false, features = ["rt", "macros"] }
 
 [build-dependencies]
 embuild = "0.31.2"
